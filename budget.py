@@ -15,23 +15,21 @@ class Category:
 
   def transfer(self, amount, category):
     if self.check_funds(amount) == True:
-      #transfer out of category
-      withdrawDescription = "Transfer to " + category.category
+      withdrawDescription = "Transfer To " + category.category
       self.ledger.append({'amount':amount*-1, 'description':withdrawDescription})
-      #transfer into category
-      depositDescription = "Transfer from " + self.category
+      depositDescription = "Transfer From " + self.category
       category.deposit(amount, depositDescription)
       return True
     else:
       return False  
 
+# get_balance method
   def get_balance(self):
     result = ''
     title = self.category.center(30, '*')
     result += title + '\n'
     total = 0
     for row in self.ledger:
-      #for key in row:
       description = row['description'][:23]
       result += description
       amount = row['amount']
